@@ -18,7 +18,7 @@ class CORSListener {
     'Access-Control-Max-Age': 2592000, // 30 days
   }
 
-  @eventDispatcher.listen(httpWorkflow.onRouteNotFound)
+  @eventDispatcher.listen(httpWorkflow.onRouteNotFound as any)
   onRouteNotFound(event: typeof httpWorkflow.onRouteNotFound.event) {
     if (event.request.getUrl().includes('/trpc')) {
       event.response.setHeader('Access-Control-Allow-Origin', '*')
@@ -40,7 +40,7 @@ class CORSListener {
       event.send(new JSONResponse(true, 200).headers(this.headers))
   }
 
-  @eventDispatcher.listen(httpWorkflow.onControllerError)
+  @eventDispatcher.listen(httpWorkflow.onControllerError as any)
   onControllerError(event: typeof httpWorkflow.onControllerError.event) {
     if (event.sent) return
     if (event.error instanceof Error) {
